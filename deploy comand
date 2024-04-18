@@ -1,0 +1,44 @@
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustup target add wasm32-unknown-unknown
+cargo install --locked soroban-cli
+
+
+
+
+
+
+soroban network add \
+  --global testnet \
+  --rpc-url https://soroban-testnet.stellar.org:443 \
+  --network-passphrase "Test SDF Network ; September 2015"
+
+soroban keys generate --global alice --network testnet
+
+soroban keys address alice
+
+
+
+soroban contract init soroban-hello-world
+
+
+├── Cargo.lock
+├── Cargo.toml
+├── README.md
+└── contracts
+    └── hello_world
+        ├── Cargo.toml
+        └── src
+            ├── lib.rs
+            └── test.rs
+
+
+
+soroban_token_contract
+soroban contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/soroban_token_contract.wasm \
+  --source alice \
+  --network testnet
+
+
+
+  https://github.com/Rise-In/Stellar-Workshop-Token-Template.git
