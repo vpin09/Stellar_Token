@@ -1,41 +1,118 @@
-# Stellar-Token
+# Soroban Token Contract
 
-Certainly, here's a concise README for the Soroban token contract:
+This contract is a sample implementation of the Soroban token interface. It provides functionalities for token minting, setting administrators, managing allowances, transferring tokens, burning tokens, and retrieving token metadata such as name, symbol, and decimals.
 
-1. **Initialization**: 
-    - Initialize the contract with an administrator, decimal precision, name, and symbol.
+## Getting Started
 
-2. **Minting**: 
-    - Only the administrator can mint tokens to specific addresses.
+To deploy and interact with this contract, you will need to set up a Soroban environment and have access to the Soroban SDK.
 
-3. **Admin Management**: 
-    - The administrator can be changed by the current admin.
+## Features
 
-4. **Allowance Mechanism**: 
-    - Users can delegate spending rights to others with an optional expiration.
+### Initialize
 
-5. **Token Transfers**: 
-    - Token holders can transfer tokens securely.
+- **Function:** `initialize`
+- **Purpose:** Initializes the token contract with the provided parameters, including the administrator address, decimal precision, token name, and symbol.
+- **Access:** Only callable once during contract initialization.
+- **Parameters:**
+  - `admin`: Address of the administrator.
+  - `decimal`: Decimal precision for token amounts.
+  - `name`: Name of the token.
+  - `symbol`: Symbol of the token.
 
-6. **Token Burning**: 
-    - Tokens can be burned, reducing the total supply.
+### Mint
 
-7. **Metadata Retrieval**: 
-    - Retrieve token metadata like name, symbol, and decimal precision.
+- **Function:** `mint`
+- **Purpose:** Mints new tokens and assigns them to a specified account.
+- **Access:** Only callable by the administrator.
+- **Parameters:**
+  - `to`: Address of the recipient.
+  - `amount`: Amount of tokens to mint.
 
-8. **Security**: 
-    - Access controls ensure only authorized actions are performed.
+### Set Admin
 
-9. **Testing**: 
-    - Unit tests validate contract functionality.
+- **Function:** `set_admin`
+- **Purpose:** Sets a new administrator for the token contract.
+- **Access:** Only callable by the current administrator.
+- **Parameters:**
+  - `new_admin`: Address of the new administrator.
 
-10. **Deployment**: 
-    - Deploy the contract with initial parameters.
+### Allowance
 
-11. **Usage**: 
-    - Interact with the contract through supported interfaces.
+- **Function:** `allowance`
+- **Purpose:** Retrieves the amount of tokens that the spender is allowed to spend on behalf of the owner.
+- **Parameters:**
+  - `from`: Address of the owner of the tokens.
+  - `spender`: Address of the spender.
 
-12. **Contributing**: 
-    - Contributions welcome via pull requests adhering to coding standards.
+### Approve
 
-Thank You
+- **Function:** `approve`
+- **Purpose:** Approves the spender to spend a specified amount of tokens on behalf of the owner.
+- **Access:** Only callable by the owner of the tokens.
+- **Parameters:**
+  - `spender`: Address of the spender.
+  - `amount`: Amount of tokens to approve.
+  - `expiration_ledger`: Expiration ledger for the approval.
+
+### Balance
+
+- **Function:** `balance`
+- **Purpose:** Retrieves the token balance of a specified account.
+- **Parameters:**
+  - `id`: Address of the account.
+
+### Transfer
+
+- **Function:** `transfer`
+- **Purpose:** Transfers tokens from one account to another.
+- **Access:** Only callable by the owner of the tokens.
+- **Parameters:**
+  - `from`: Address of the sender.
+  - `to`: Address of the recipient.
+  - `amount`: Amount of tokens to transfer.
+
+### Transfer From
+
+- **Function:** `transfer_from`
+- **Purpose:** Transfers tokens from one account to another on behalf of the owner.
+- **Access:** Only callable by the approved spender.
+- **Parameters:**
+  - `spender`: Address of the spender.
+  - `from`: Address of the owner of the tokens.
+  - `to`: Address of the recipient.
+  - `amount`: Amount of tokens to transfer.
+
+### Burn
+
+- **Function:** `burn`
+- **Purpose:** Burns a specified amount of tokens from the owner's account.
+- **Access:** Only callable by the owner of the tokens.
+- **Parameters:**
+  - `from`: Address of the token owner.
+  - `amount`: Amount of tokens to burn.
+
+### Burn From
+
+- **Function:** `burn_from`
+- **Purpose:** Burns a specified amount of tokens on behalf of the owner.
+- **Access:** Only callable by the approved spender.
+- **Parameters:**
+  - `spender`: Address of the spender.
+  - `from`: Address of the token owner.
+  - `amount`: Amount of tokens to burn.
+
+### Metadata
+
+- **Functions:**
+  - `decimals`: Retrieves the decimal precision of the token.
+  - `name`: Retrieves the name of the token.
+  - `symbol`: Retrieves the symbol of the token.
+
+## Testing
+
+The contract provides unit tests for certain functionalities, including allowance-related functions. These tests can be run using the appropriate testing framework.
+
+## Dependencies
+
+This contract depends on the Soroban SDK and related modules such as `admin`, `allowance`, `balance`, and `metadata`. Ensure that these dependencies are properly installed and configured before deploying the contract.
+
